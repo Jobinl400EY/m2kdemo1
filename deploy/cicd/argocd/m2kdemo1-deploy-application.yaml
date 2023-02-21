@@ -12,6 +12,13 @@ spec:
   source:
     path: deploy/yamls
     repoURL: https://github.com/Jobinl400EY/m2kdemo1
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
 status:
   health: {}
   summary: {}
