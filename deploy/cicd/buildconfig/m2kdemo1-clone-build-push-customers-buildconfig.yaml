@@ -9,6 +9,8 @@ spec:
     to:
       kind: DockerImage
       name: quay.io/jobinl400ey/customers:latest
+    pushSecret:
+      name: dockerquay
   postCommit: {}
   resources: {}
   source:
