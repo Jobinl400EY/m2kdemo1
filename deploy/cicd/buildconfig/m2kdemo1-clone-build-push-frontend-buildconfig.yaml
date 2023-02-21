@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  creationTimestamp: null
+  name: m2kdemo1-clone-build-push-frontend
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: DockerImage
+      name: quay.io/jobinl400ey/frontend:latest
+  postCommit: {}
+  resources: {}
+  source:
+    git:
+      ref: main
+      uri: https://github.com/Jobinl400EY/m2kdemo1
+    contextDir: source/frontend
+    sourceSecret:
+      name: m2kdemo1-git-repo-generic
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+    type: Docker
+  triggers:
+    - generic:
+        secretReference:
+          name: m2kdemo1-web-hook-frontend
+      type: Generic
+status:
+  lastVersion: 0

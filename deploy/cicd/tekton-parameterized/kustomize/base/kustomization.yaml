@@ -1,0 +1,21 @@
+resources:
+  - gateway-vcapasenv-secret.yaml
+  - m2kdemo1-image-registry-secret.yaml
+  - m2kdemo1-tekton-triggers-admin-rolebinding.yaml
+  - orders-vcapasenv-secret.yaml
+  - orders-vcapasspringbootproperties-secret.yaml
+  - gateway-vcapasspringbootproperties-secret.yaml
+  - inventory-vcapasenv-secret.yaml
+  - m2kdemo1-clone-build-push-pipeline.yaml
+  - m2kdemo1-git-event-triggerbinding.yaml
+  - m2kdemo1-tekton-triggers-admin-serviceaccount.yaml
+  - quay-io-imagepullsecret-secret.yaml
+  - customers-vcapasspringbootproperties-secret.yaml
+  - frontend-vcapasenv-secret.yaml
+  - m2kdemo1-clone-push-serviceaccount.yaml
+  - m2kdemo1-tekton-triggers-admin-role.yaml
+  - m2kdemo1-run-clone-build-push-triggertemplate.yaml
+  - customers-vcapasenv-secret.yaml
+  - inventory-vcapasspringbootproperties-secret.yaml
+  - m2kdemo1-git-repo-eventlistener.yaml
+  - m2kdemo1-git-repo-route.yaml

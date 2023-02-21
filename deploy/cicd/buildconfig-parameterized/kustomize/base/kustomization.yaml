@@ -1,0 +1,12 @@
+resources:
+  - m2kdemo1-web-hook-inventory-secret.yaml
+  - m2kdemo1-web-hook-orders-secret.yaml
+  - m2kdemo1-clone-build-push-customers-buildconfig.yaml
+  - m2kdemo1-clone-build-push-frontend-buildconfig.yaml
+  - m2kdemo1-clone-build-push-gateway-buildconfig.yaml
+  - m2kdemo1-clone-build-push-inventory-buildconfig.yaml
+  - m2kdemo1-clone-build-push-orders-buildconfig.yaml
+  - m2kdemo1-web-hook-customers-secret.yaml
+  - m2kdemo1-git-repo-generic-secret.yaml
+  - m2kdemo1-web-hook-frontend-secret.yaml
+  - m2kdemo1-web-hook-gateway-secret.yaml

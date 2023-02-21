@@ -1,0 +1,407 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: m2kdemo1-template
+  generatename: ""
+  namespace: ""
+  selflink: ""
+  uid: ""
+  resourceversion: ""
+  generation: 0
+  creationtimestamp: "0001-01-01T00:00:00Z"
+  deletiontimestamp: null
+  deletiongraceperiodseconds: null
+  labels: {}
+  annotations: {}
+  ownerreferences: []
+  finalizers: []
+  clustername: ""
+  managedfields: []
+objects:
+  - apiVersion: v1
+    data:
+      VCAP_APPLICATION: eyJhcHBsaWNhdGlvbl9pZCI6IjQ0YTQ1OGM0LWRlYTAtNDI1Yi04OWFjLWFiOTVkOWQxMmFmNyIsImFwcGxpY2F0aW9uX25hbWUiOiJnYXRld2F5IiwiYXBwbGljYXRpb25fdXJpcyI6WyJlbnRlcnByaXNlLWFwcC01MjUyMTA4MzktZ2F0ZXdheS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8iXSwiYXBwbGljYXRpb25fdmVyc2lvbiI6IjUzYzJkZmQ0LWEyZDktNDZlZS1iZmE2LWFmYjRjODE1NTcyNCIsImNmX2FwaSI6Imh0dHBzOi8vYXBpLjIwLjIzMS4xMjEuMTg0Lm5pcC5pbyIsImxpbWl0cyI6eyJkaXNrIjoxMDI0LCJmZHMiOjE2Mzg0LCJtZW0iOjEwMjR9LCJuYW1lIjoiZ2F0ZXdheSIsInNwYWNlX2lkIjoiMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmIiwic3BhY2VfbmFtZSI6ImVudGVycHJpc2UiLCJ1cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1nYXRld2F5LjIwLjIzMS4xMjEuMTg0Lm5pcC5pbyJdLCJ1c2VycyI6bnVsbCwidmVyc2lvbiI6IjUzYzJkZmQ0LWEyZDktNDZlZS1iZmE2LWFmYjRjODE1NTcyNCJ9
+      VCAP_SERVICES: e30=
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: gateway-vcapasenv
+    type: Opaque
+  - apiVersion: triggers.tekton.dev/v1alpha1
+    kind: TriggerBinding
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-git-event
+    spec: {}
+    status: {}
+  - apiVersion: v1
+    data:
+      .dockerconfigjson: PFRPRE86IGluc2VydCB5b3VyIGRvY2tlciBjb25maWcganNvbj4=
+    kind: Secret
+    metadata:
+      annotations:
+        tekton.dev/docker-0: ""
+      creationTimestamp: null
+      name: m2kdemo1-image-registry
+    type: kubernetes.io/dockerconfigjson
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-tekton-triggers-admin
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: Role
+      name: m2kdemo1-tekton-triggers-admin
+    subjects:
+      - kind: ServiceAccount
+        name: m2kdemo1-tekton-triggers-admin
+  - apiVersion: v1
+    data:
+      VCAP_APPLICATION: eyJhcHBsaWNhdGlvbl9pZCI6IjE3MmQ2MGU1LWZhNDEtNDU1YS1iN2QzLTBhOTBlN2E4YTQzZCIsImFwcGxpY2F0aW9uX25hbWUiOiJvcmRlcnMiLCJhcHBsaWNhdGlvbl91cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1vcmRlcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sImFwcGxpY2F0aW9uX3ZlcnNpb24iOiI3ODg0YTEyMC0wNDBhLTQ0NGMtYmFmMi1iODhkNTg4OGQ3MjciLCJjZl9hcGkiOiJodHRwczovL2FwaS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8iLCJsaW1pdHMiOnsiZGlzayI6MTAyNCwiZmRzIjoxNjM4NCwibWVtIjoxMDI0fSwibmFtZSI6Im9yZGVycyIsInNwYWNlX2lkIjoiMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmIiwic3BhY2VfbmFtZSI6ImVudGVycHJpc2UiLCJ1cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1vcmRlcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sInVzZXJzIjpudWxsLCJ2ZXJzaW9uIjoiNzg4NGExMjAtMDQwYS00NDRjLWJhZjItYjg4ZDU4ODhkNzI3In0=
+      VCAP_SERVICES: e30=
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: orders-vcapasenv
+    type: Opaque
+  - apiVersion: v1
+    data:
+      vcap-properties.yaml: dmNhcC5hcHBsaWNhdGlvbi51c2VyczogCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fbmFtZTogb3JkZXJzCnZjYXAuYXBwbGljYXRpb24uY2ZfYXBpOiBodHRwczovL2FwaS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi5uYW1lOiBvcmRlcnMKdmNhcC5hcHBsaWNhdGlvbi5zcGFjZV9uYW1lOiBlbnRlcnByaXNlCnZjYXAuYXBwbGljYXRpb24uc3BhY2VfaWQ6IDMwMmZmZTBjLTM4M2QtNDRjYS04NzJiLWFmNzdiYzU5ZjYzZgp2Y2FwLmFwcGxpY2F0aW9uLnVyaXM6IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1vcmRlcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24udXJpc1swXTogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LW9yZGVycy4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi52ZXJzaW9uOiA3ODg0YTEyMC0wNDBhLTQ0NGMtYmFmMi1iODhkNTg4OGQ3MjcKdmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl9pZDogMTcyZDYwZTUtZmE0MS00NTVhLWI3ZDMtMGE5MGU3YThhNDNkCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fdXJpczogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LW9yZGVycy4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl91cmlzWzBdOiBlbnRlcnByaXNlLWFwcC01MjUyMTA4Mzktb3JkZXJzLjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLmFwcGxpY2F0aW9uX3ZlcnNpb246IDc4ODRhMTIwLTA0MGEtNDQ0Yy1iYWYyLWI4OGQ1ODg4ZDcyNwp2Y2FwLmFwcGxpY2F0aW9uLmxpbWl0cy5mZHM6IDE2Mzg0CnZjYXAuYXBwbGljYXRpb24ubGltaXRzLm1lbTogMTAyNAp2Y2FwLmFwcGxpY2F0aW9uLmxpbWl0cy5kaXNrOiAxMDI0
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: orders-vcapasspringbootproperties
+    type: Opaque
+  - apiVersion: v1
+    data:
+      vcap-properties.yaml: dmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl92ZXJzaW9uOiA1M2MyZGZkNC1hMmQ5LTQ2ZWUtYmZhNi1hZmI0YzgxNTU3MjQKdmNhcC5hcHBsaWNhdGlvbi5uYW1lOiBnYXRld2F5CnZjYXAuYXBwbGljYXRpb24udXNlcnM6IAp2Y2FwLmFwcGxpY2F0aW9uLmFwcGxpY2F0aW9uX2lkOiA0NGE0NThjNC1kZWEwLTQyNWItODlhYy1hYjk1ZDlkMTJhZjcKdmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl9uYW1lOiBnYXRld2F5CnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fdXJpczogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LWdhdGV3YXkuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fdXJpc1swXTogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LWdhdGV3YXkuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24uc3BhY2VfbmFtZTogZW50ZXJwcmlzZQp2Y2FwLmFwcGxpY2F0aW9uLnVyaXM6IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1nYXRld2F5LjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLnVyaXNbMF06IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1nYXRld2F5LjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLnZlcnNpb246IDUzYzJkZmQ0LWEyZDktNDZlZS1iZmE2LWFmYjRjODE1NTcyNAp2Y2FwLmFwcGxpY2F0aW9uLmNmX2FwaTogaHR0cHM6Ly9hcGkuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24ubGltaXRzLmRpc2s6IDEwMjQKdmNhcC5hcHBsaWNhdGlvbi5saW1pdHMuZmRzOiAxNjM4NAp2Y2FwLmFwcGxpY2F0aW9uLmxpbWl0cy5tZW06IDEwMjQKdmNhcC5hcHBsaWNhdGlvbi5zcGFjZV9pZDogMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNm
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: gateway-vcapasspringbootproperties
+    type: Opaque
+  - apiVersion: v1
+    data:
+      VCAP_APPLICATION: eyJhcHBsaWNhdGlvbl9pZCI6Ijg3MzUzOTNiLWExZjctNDIxMS1hNmIzLTQ1OWE3YzVlNjc0OSIsImFwcGxpY2F0aW9uX25hbWUiOiJpbnZlbnRvcnkiLCJhcHBsaWNhdGlvbl91cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1pbnZlbnRvcnkuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sImFwcGxpY2F0aW9uX3ZlcnNpb24iOiIxMTZmN2E4Ni03NTQzLTRkOWItYTJlNS1jYWQ3OWViYTA2YTAiLCJjZl9hcGkiOiJodHRwczovL2FwaS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8iLCJsaW1pdHMiOnsiZGlzayI6MTAyNCwiZmRzIjoxNjM4NCwibWVtIjoxMDI0fSwibmFtZSI6ImludmVudG9yeSIsInNwYWNlX2lkIjoiMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmIiwic3BhY2VfbmFtZSI6ImVudGVycHJpc2UiLCJ1cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1pbnZlbnRvcnkuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sInVzZXJzIjpudWxsLCJ2ZXJzaW9uIjoiMTE2ZjdhODYtNzU0My00ZDliLWEyZTUtY2FkNzllYmEwNmEwIn0=
+      VCAP_SERVICES: e30=
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: inventory-vcapasenv
+    type: Opaque
+  - apiVersion: tekton.dev/v1beta1
+    kind: Pipeline
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-clone-build-push
+    spec:
+      params:
+        - description: registry-domain/namespace where the output image should be pushed.
+          name: image-registry-url
+          type: string
+      tasks:
+        - name: clone-1
+          params:
+            - name: url
+              value: '<TODO: insert git repo url>'
+            - name: revision
+              value: main
+            - name: deleteExisting
+              value: "true"
+          taskRef:
+            name: git-clone
+          workspaces:
+            - name: output
+              workspace: m2kdemo1-shared-data
+        - name: build-push-1
+          params:
+            - name: IMAGE
+              value: $(params.image-registry-url)/gateway
+            - name: DOCKERFILE
+              value: '<TODO: insert path to the Dockerfile>'
+            - name: CONTEXT
+              value: '<TODO: insert path to the directory containing Dockerfile>'
+          runAfter:
+            - clone-1
+          taskRef:
+            name: kaniko
+          workspaces:
+            - name: source
+              workspace: m2kdemo1-shared-data
+        - name: clone-2
+          params:
+            - name: url
+              value: '<TODO: insert git repo url>'
+            - name: revision
+              value: main
+            - name: deleteExisting
+              value: "true"
+          runAfter:
+            - build-push-1
+          taskRef:
+            name: git-clone
+          workspaces:
+            - name: output
+              workspace: m2kdemo1-shared-data
+        - name: build-push-2
+          params:
+            - name: IMAGE
+              value: $(params.image-registry-url)/customers
+            - name: DOCKERFILE
+              value: '<TODO: insert path to the Dockerfile>'
+            - name: CONTEXT
+              value: '<TODO: insert path to the directory containing Dockerfile>'
+          runAfter:
+            - clone-2
+          taskRef:
+            name: kaniko
+          workspaces:
+            - name: source
+              workspace: m2kdemo1-shared-data
+        - name: clone-3
+          params:
+            - name: url
+              value: '<TODO: insert git repo url>'
+            - name: revision
+              value: main
+            - name: deleteExisting
+              value: "true"
+          runAfter:
+            - build-push-2
+          taskRef:
+            name: git-clone
+          workspaces:
+            - name: output
+              workspace: m2kdemo1-shared-data
+        - name: build-push-3
+          params:
+            - name: IMAGE
+              value: $(params.image-registry-url)/frontend
+            - name: DOCKERFILE
+              value: '<TODO: insert path to the Dockerfile>'
+            - name: CONTEXT
+              value: '<TODO: insert path to the directory containing Dockerfile>'
+          runAfter:
+            - clone-3
+          taskRef:
+            name: kaniko
+          workspaces:
+            - name: source
+              workspace: m2kdemo1-shared-data
+        - name: clone-4
+          params:
+            - name: url
+              value: '<TODO: insert git repo url>'
+            - name: revision
+              value: main
+            - name: deleteExisting
+              value: "true"
+          runAfter:
+            - build-push-3
+          taskRef:
+            name: git-clone
+          workspaces:
+            - name: output
+              workspace: m2kdemo1-shared-data
+        - name: build-push-4
+          params:
+            - name: IMAGE
+              value: $(params.image-registry-url)/orders
+            - name: DOCKERFILE
+              value: '<TODO: insert path to the Dockerfile>'
+            - name: CONTEXT
+              value: '<TODO: insert path to the directory containing Dockerfile>'
+          runAfter:
+            - clone-4
+          taskRef:
+            name: kaniko
+          workspaces:
+            - name: source
+              workspace: m2kdemo1-shared-data
+        - name: clone-5
+          params:
+            - name: url
+              value: '<TODO: insert git repo url>'
+            - name: revision
+              value: main
+            - name: deleteExisting
+              value: "true"
+          runAfter:
+            - build-push-4
+          taskRef:
+            name: git-clone
+          workspaces:
+            - name: output
+              workspace: m2kdemo1-shared-data
+        - name: build-push-5
+          params:
+            - name: IMAGE
+              value: $(params.image-registry-url)/inventory
+            - name: DOCKERFILE
+              value: '<TODO: insert path to the Dockerfile>'
+            - name: CONTEXT
+              value: '<TODO: insert path to the directory containing Dockerfile>'
+          runAfter:
+            - clone-5
+          taskRef:
+            name: kaniko
+          workspaces:
+            - name: source
+              workspace: m2kdemo1-shared-data
+      workspaces:
+        - description: This workspace will receive the cloned git repo and be passed to the kaniko task for building the image.
+          name: m2kdemo1-shared-data
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-tekton-triggers-admin
+    rules:
+      - apiGroups:
+          - triggers.tekton.dev
+        resources:
+          - eventlisteners
+          - triggerbindings
+          - triggertemplates
+        verbs:
+          - get
+      - apiGroups:
+          - tekton.dev
+        resources:
+          - pipelineruns
+        verbs:
+          - create
+      - apiGroups:
+          - ""
+        resources:
+          - configmaps
+        verbs:
+          - get
+          - list
+          - watch
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-tekton-triggers-admin
+  - apiVersion: v1
+    data:
+      .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJxdWF5LmlvIjogewoJCQkiYXV0aCI6ICJhbTlpYVc1c05EQXdaWGs2U213ME15UnphR0ZyZEdreE9UazAiCgkJfQoJfQp9
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: quay-io-imagepullsecret
+    type: kubernetes.io/dockerconfigjson
+  - apiVersion: v1
+    data:
+      vcap-properties.yaml: dmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl9pZDogNDlhNjBjZGItYmUwZi00MDcyLTlhZTAtYzRjYTEzMTk2YjA2CnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fbmFtZTogY3VzdG9tZXJzCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fdmVyc2lvbjogMDc2MzEzMDQtMTc1Yi00MWI4LTg1MDgtZDJjODZjMGFkOTRkCnZjYXAuYXBwbGljYXRpb24uY2ZfYXBpOiBodHRwczovL2FwaS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi5zcGFjZV9pZDogMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmCnZjYXAuYXBwbGljYXRpb24udXNlcnM6IAp2Y2FwLmFwcGxpY2F0aW9uLnZlcnNpb246IDA3NjMxMzA0LTE3NWItNDFiOC04NTA4LWQyYzg2YzBhZDk0ZAp2Y2FwLmFwcGxpY2F0aW9uLmFwcGxpY2F0aW9uX3VyaXM6IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1jdXN0b21lcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fdXJpc1swXTogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LWN1c3RvbWVycy4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi5saW1pdHMuZGlzazogMTAyNAp2Y2FwLmFwcGxpY2F0aW9uLmxpbWl0cy5mZHM6IDE2Mzg0CnZjYXAuYXBwbGljYXRpb24ubGltaXRzLm1lbTogMTAyNAp2Y2FwLmFwcGxpY2F0aW9uLm5hbWU6IGN1c3RvbWVycwp2Y2FwLmFwcGxpY2F0aW9uLnNwYWNlX25hbWU6IGVudGVycHJpc2UKdmNhcC5hcHBsaWNhdGlvbi51cmlzOiBlbnRlcnByaXNlLWFwcC01MjUyMTA4MzktY3VzdG9tZXJzLjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLnVyaXNbMF06IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1jdXN0b21lcnMuMjAuMjMxLjEyMS4xODQubmlwLmlv
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: customers-vcapasspringbootproperties
+    type: Opaque
+  - apiVersion: v1
+    data:
+      VCAP_APPLICATION: eyJhcHBsaWNhdGlvbl9pZCI6IjMzM2M2YTNhLTRjZDUtNDYwMy04Y2Y3LTE5YzVkYjliZjc0NSIsImFwcGxpY2F0aW9uX25hbWUiOiJmcm9udGVuZCIsImFwcGxpY2F0aW9uX3VyaXMiOlsiZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LWZyb250ZW5kLjIwLjIzMS4xMjEuMTg0Lm5pcC5pbyJdLCJhcHBsaWNhdGlvbl92ZXJzaW9uIjoiNmFlNmMzNWEtMzAxMi00NWUyLWFkNGMtNzc4MjhiNDZjN2Y0IiwiY2ZfYXBpIjoiaHR0cHM6Ly9hcGkuMjAuMjMxLjEyMS4xODQubmlwLmlvIiwibGltaXRzIjp7ImRpc2siOjEwMjQsImZkcyI6MTYzODQsIm1lbSI6MjA0OH0sIm5hbWUiOiJmcm9udGVuZCIsInNwYWNlX2lkIjoiMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmIiwic3BhY2VfbmFtZSI6ImVudGVycHJpc2UiLCJ1cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1mcm9udGVuZC4yMC4yMzEuMTIxLjE4NC5uaXAuaW8iXSwidXNlcnMiOm51bGwsInZlcnNpb24iOiI2YWU2YzM1YS0zMDEyLTQ1ZTItYWQ0Yy03NzgyOGI0NmM3ZjQifQ==
+      VCAP_SERVICES: e30=
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: frontend-vcapasenv
+    type: Opaque
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-clone-push
+    secrets:
+      - name: m2kdemo1-image-registry
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: m2kdemo1-git-repo
+      name: m2kdemo1-git-repo
+    spec:
+      host: m2kdemo1.com
+      path: /el-m2kdemo1-git-repo
+      port:
+        targetPort: port-8080
+      to:
+        kind: Service
+        name: m2kdemo1-git-repo
+        weight: 1
+    status:
+      ingress:
+        - {}
+  - apiVersion: triggers.tekton.dev/v1alpha1
+    kind: TriggerTemplate
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-run-clone-build-push
+    spec:
+      resourcetemplates:
+        - apiVersion: tekton.dev/v1beta1
+          kind: PipelineRun
+          metadata:
+            creationTimestamp: null
+            name: m2kdemo1-clone-build-push-$(uid)
+          spec:
+            params:
+              - name: image-registry-url
+                value: quay.io/jobinl400ey
+            pipelineRef:
+              name: m2kdemo1-clone-build-push
+            serviceAccountName: m2kdemo1-clone-push
+            workspaces:
+              - name: m2kdemo1-shared-data
+                volumeClaimTemplate:
+                  metadata:
+                    creationTimestamp: null
+                  spec:
+                    accessModes:
+                      - ReadWriteOnce
+                    resources:
+                      requests:
+                        storage: 1Gi
+                    storageClassName: default
+                  status: {}
+          status: {}
+    status: {}
+  - apiVersion: v1
+    data:
+      VCAP_APPLICATION: eyJhcHBsaWNhdGlvbl9pZCI6IjQ5YTYwY2RiLWJlMGYtNDA3Mi05YWUwLWM0Y2ExMzE5NmIwNiIsImFwcGxpY2F0aW9uX25hbWUiOiJjdXN0b21lcnMiLCJhcHBsaWNhdGlvbl91cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1jdXN0b21lcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sImFwcGxpY2F0aW9uX3ZlcnNpb24iOiIwNzYzMTMwNC0xNzViLTQxYjgtODUwOC1kMmM4NmMwYWQ5NGQiLCJjZl9hcGkiOiJodHRwczovL2FwaS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8iLCJsaW1pdHMiOnsiZGlzayI6MTAyNCwiZmRzIjoxNjM4NCwibWVtIjoxMDI0fSwibmFtZSI6ImN1c3RvbWVycyIsInNwYWNlX2lkIjoiMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmIiwic3BhY2VfbmFtZSI6ImVudGVycHJpc2UiLCJ1cmlzIjpbImVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1jdXN0b21lcnMuMjAuMjMxLjEyMS4xODQubmlwLmlvIl0sInVzZXJzIjpudWxsLCJ2ZXJzaW9uIjoiMDc2MzEzMDQtMTc1Yi00MWI4LTg1MDgtZDJjODZjMGFkOTRkIn0=
+      VCAP_SERVICES: e30=
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: customers-vcapasenv
+    type: Opaque
+  - apiVersion: v1
+    data:
+      vcap-properties.yaml: dmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl92ZXJzaW9uOiAxMTZmN2E4Ni03NTQzLTRkOWItYTJlNS1jYWQ3OWViYTA2YTAKdmNhcC5hcHBsaWNhdGlvbi5jZl9hcGk6IGh0dHBzOi8vYXBpLjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLnVyaXM6IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1pbnZlbnRvcnkuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24udXJpc1swXTogZW50ZXJwcmlzZS1hcHAtNTI1MjEwODM5LWludmVudG9yeS4yMC4yMzEuMTIxLjE4NC5uaXAuaW8KdmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl91cmlzOiBlbnRlcnByaXNlLWFwcC01MjUyMTA4MzktaW52ZW50b3J5LjIwLjIzMS4xMjEuMTg0Lm5pcC5pbwp2Y2FwLmFwcGxpY2F0aW9uLmFwcGxpY2F0aW9uX3VyaXNbMF06IGVudGVycHJpc2UtYXBwLTUyNTIxMDgzOS1pbnZlbnRvcnkuMjAuMjMxLjEyMS4xODQubmlwLmlvCnZjYXAuYXBwbGljYXRpb24uYXBwbGljYXRpb25fbmFtZTogaW52ZW50b3J5CnZjYXAuYXBwbGljYXRpb24ubGltaXRzLmRpc2s6IDEwMjQKdmNhcC5hcHBsaWNhdGlvbi5saW1pdHMuZmRzOiAxNjM4NAp2Y2FwLmFwcGxpY2F0aW9uLmxpbWl0cy5tZW06IDEwMjQKdmNhcC5hcHBsaWNhdGlvbi5uYW1lOiBpbnZlbnRvcnkKdmNhcC5hcHBsaWNhdGlvbi5zcGFjZV9pZDogMzAyZmZlMGMtMzgzZC00NGNhLTg3MmItYWY3N2JjNTlmNjNmCnZjYXAuYXBwbGljYXRpb24uc3BhY2VfbmFtZTogZW50ZXJwcmlzZQp2Y2FwLmFwcGxpY2F0aW9uLnVzZXJzOiAKdmNhcC5hcHBsaWNhdGlvbi52ZXJzaW9uOiAxMTZmN2E4Ni03NTQzLTRkOWItYTJlNS1jYWQ3OWViYTA2YTAKdmNhcC5hcHBsaWNhdGlvbi5hcHBsaWNhdGlvbl9pZDogODczNTM5M2ItYTFmNy00MjExLWE2YjMtNDU5YTdjNWU2NzQ5
+    kind: Secret
+    metadata:
+      creationTimestamp: null
+      name: inventory-vcapasspringbootproperties
+    type: Opaque
+  - apiVersion: triggers.tekton.dev/v1alpha1
+    kind: EventListener
+    metadata:
+      creationTimestamp: null
+      name: m2kdemo1-git-repo
+    spec:
+      namespaceSelector: {}
+      resources: {}
+      serviceAccountName: m2kdemo1-tekton-triggers-admin
+      triggers:
+        - bindings:
+            - ref: m2kdemo1-git-event
+          template:
+            ref: m2kdemo1-run-clone-build-push
+    status:
+      configuration:
+        generatedName: ""
+parameters: []

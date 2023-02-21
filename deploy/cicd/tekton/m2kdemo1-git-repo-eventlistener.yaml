@@ -1,0 +1,17 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  creationTimestamp: null
+  name: m2kdemo1-git-repo
+spec:
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: m2kdemo1-tekton-triggers-admin
+  triggers:
+    - bindings:
+        - ref: m2kdemo1-git-event
+      template:
+        ref: m2kdemo1-run-clone-build-push
+status:
+  configuration:
+    generatedName: ""
